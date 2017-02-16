@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "outDir": "./built",
+        "allowJs": true,
+        "target": "es5"
+    },
+    "files": [
+       "./src/SearchTemplate.ts",
+       "./src/Elastic.ts",
+       "./src/FileResult.ts",
+       "./src/ToolsCorpus.ts",
+       "./src/JsonTool.ts",
+       "./src/contextTs.ts",
+       "./src/indexTs.ts",
+       "./src/metadataTs.ts",
+       "./src/indexDescriptions.js",
+       "./src/common.ts"
+       
+    ]
+}
+

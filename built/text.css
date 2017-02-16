@@ -1,0 +1,145 @@
+@charset "utf-8";
+/* CSS Document */
+ 
+ 
+ 
+body{
+/*	margin-left: auto;
+	margin-right: auto; */
+	margin-top: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
+	font-family: sans-serif, serif;
+	font-size: 11pt;
+
+/*   background-color: #F3F7F3;*/  
+   background-color: #FFFFFF; 
+   font-family:lucida grande,tahoma,verdana,arial,sans-serif;    
+/*	font-family: Arial;*/
+   
+/*	background-image: url(bakgrunn-910x700.jpg);*/
+   
+} d
+
+#container{
+   background-color: #FFFFFF; 
+}
+.upmark{
+   color:blue;
+}
+
+.firstLine{
+  text-align: right;
+}
+.middleLine{
+  text-align: center;
+  white-space: nowrap;  
+  padding-left: 0px;
+  padding-right:0px;
+}
+
+#labelSpan{
+  float:left;
+  margin-left:30px;
+  color:black;
+  font-size: 12px;  
+  background-color: #FFFFFF; 
+}
+
+td { 
+	font-size: 10pt;
+	margin: 0px;
+}
+
+.sunitId{
+  font-size:10px;
+}
+
+.tableClass{
+	margin-left: 30px;
+	width: 90%;
+/*	font-size: 14px;*/
+	text-align:left;
+/*	border-spacing:8px*/
+}
+
+#slidetextdiv {
+    z-index:1000;
+    position:absolute;
+    top:60px;
+    left:136px;
+	background-color: #FFF;
+	height: 20px;
+	width: 300px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;	
+    border: 1px solid navy;    
+	font-size: 8pt;
+    opacity:1;
+   -moz-opacity:1;
+}
+
+#slidediv {
+/*    z-index:1000;
+    position:absolute;
+    width:100%;
+    top:80px;
+	background-color: #adc2d7;
+	height: auto;
+	height: auto;
+    text-align: center;
+    opacity:1;
+   -moz-opacity:1;*/
+}
+
+
+#pulldown {
+    float:left;
+    display:inline-block;
+    z-index:1000;
+    position:absolute;
+    top:0px;
+    left:10px;
+	background-color: #CCC;
+	height: 20px;
+
+    opacity:0.8;
+   -moz-opacity:0.8;
+}
+
+
+#scroll-pane{
+ margin-left: 30px;
+ width: 90%;
+ text-align:left;
+ overflow-y:scroll;
+ overflow-x:hidden;
+}
+
+span.surround-context{
+  font-style:italic;
+  color:green;
+}
+
+span.context-delim{
+  color:red;
+}
+
+#textDiv{
+  float:left;
+  padding-left:10px;
+  overflow:auto;
+  background-color: #eeeeee; 
+  width:99%;
+  height:500px;
+/*de neden under er tilføjede*/
+  text-align:left;
+  overflow-y:scroll;
+  overflow-x:hidden;
+
+}
+
+
+

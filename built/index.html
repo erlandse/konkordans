@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Text search</title>
+	<meta name="generator" content="BBEdit 9.6" />
+    <script type="text/javascript" charset="utf-8" src="https://app.uio.no/hf/ft/jquery/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="indexTs.js"></script>
+
+    <script type="text/javascript" charset="utf-8" src="indexDescriptions.js"></script>
+
+    <!--script type="text/javascript" charset="utf-8" src="jsontools.js"></script-->
+    <script type="text/javascript" charset="utf-8" src="JsonTool.js"></script>
+    <script type="text/javascript" charset="utf-8" src="SearchTemplate.js"></script>
+    <script type="text/javascript" charset="utf-8" src="Elastic.js"></script>
+    <script type="text/javascript" charset="utf-8" src="ToolsCorpus.js"></script>
+    <script type="text/javascript" charset="utf-8" src="FileResult.js"></script>
+    <script type="text/javascript" charset="utf-8" src="metadataTs.js"></script>
+    <script type="text/javascript" charset="utf-8" src="common.js"></script>
+    <!--script type="text/javascript" charset="utf-8" src="tools.js"></script-->
+    
+    <link href="text.css" type="text/css" rel="stylesheet"/>
+	<link href="uio-app-top-bottom.css" type="text/css" rel="stylesheet" media="screen, print" />
+    <link href="uio-app-print.css" type="text/css" rel="stylesheet" media="print" />
+
+</head>
+<body onload='initialize()'>
+<!-- Page header starts -->
+<div id="slidetextdiv">
+</div>
+
+
+<div id='container'>
+<div id="app-head-wrapper"> 
+  <div id="line-top">
+    <div id="uiologo" class="english-uiologo">
+      <a href="http://www.uio.no/english/">University of Oslo</a>
+    </div> 
+  </div>
+  <div id="app-head">
+    <div id="app-name"> 
+      <a href='http://nabu.usit.uio.no/hf/ilos/index.html'>Corpus search</a> 
+    </div>
+  </div> 
+</div>
+<!-- Page header end -->
+
+<table style="margin-left:30px;">
+<tr><td>Select corpus:</td><td><select id='idIndexSelect' onchange="fillMetadataTable()"></select></td></tr>
+</table>
+
+<hr>
+<table style='margin-left:30px;' id='metadataTable'><tr><td></td></tr></table>
+
+
+<hr>
+<table style='margin-left:30px;' id='sortTable'>
+<tr><td>Sort:</td><td><select id ='selectSort'">
+<option value="left">Left string</option> 
+<option value="middle">Match string</option> 
+<option value="right">Right string</option> 
+<option value="document">Text</option> 
+</select></td>
+<td><input type='button' value='Sort' onclick='sortResult()'/></td><td><input type='button' value='Sort to file' onclick='sortToFile()'/></td>
+<td>Word classes:</td><td><select id ='selectWordclasses' onchange='insertWordclassInSearchField()'"></td>
+<td><span id='labelSpan'></span></td>
+</tr>
+</tr></table>
+
+<table  border="0" class='tableClass'>
+<tr>
+<td><input type="text" size='70' id='inputField' onkeyup='seeIfLookUp(event)'  />&nbsp;&nbsp;<input type='button' id='searchButton' value='Search' onclick='search()'/>
+&nbsp;&nbsp;<input type='button' id='stopButton' value='Stop search' onclick='stopSearching()'/></td>
+
+</tr>
+<tr><td colspan='3'><div id='textDiv'><table id='tableBody' border='0' width= '100%'></table></div></td></tr>
+</table>
+<div id='sortDiv' style="text-align:left;margin-left:30px;">
+<input type='button'id='nextButtonId' value='Next' onclick='fileResultObject.nextSortedPage()'/>
+  <input type="range" id="range" style="width:85%;" min="0" max="2000" value="0" step="1" ontouchstart="fileResultObject.whenMouseDownSlider(this.value)" onmousedown="fileResultObject.whenMouseDownSlider(this.value)" onmousemove="fileResultObject.showValue(this.value)" ontouchmove="fileResultObject.showValue(this.value)" ontouchend="fileResultObject.setTextFromSlider(this.value)" onmouseup="fileResultObject.setTextFromSlider(this.value)"/>
+  <span id='sortedFile'></span>
+</div>
+<!-- Page footer starts -->
+<div id="app-footer-wrapper"> 
+  <div id="app-footer">
+    <div id="app-responsible"> 
+      <span class="vrtx-label">Responsible for this service</span> 
+      <span ><a style="color:blue;" target='_blank' href="http://www.usit.uio.no/english/about/organisation/bps/rc/">Department for Research Computing</a></span> 
+      <span>Data Capture and Collections Management Group</span>
+    </div>
+  </div> 
+</div>
+<!-- Page footer end -->
+
+ <!-- container-->
+<div style="margin-left:30px">
+<textarea cols='100' rows='40' id='felt'></textarea>
+</div>
+<br>
+</body>
+</html>

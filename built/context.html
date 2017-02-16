@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Text search - context</title>
+	<meta name="generator" content="BBEdit 9.6" />
+    <script type="text/javascript" charset="utf-8" src="https://app.uio.no/hf/ft/jquery/jquery.js"></script>
+    <!--script type="text/javascript" charset="utf-8" src="tools.js"></script-->
+    <script type="text/javascript" charset="utf-8" src="contextTs.js"></script>
+    <script type="text/javascript" charset="utf-8" src="IndexDescription.js"></script>
+    <!--script type="text/javascript" charset="utf-8" src="metadata.js"></script-->
+    <script type="text/javascript" charset="utf-8" src="Elastic.js"></script>
+    <script type="text/javascript" charset="utf-8" src="JsonTool.js"></script>
+    <script type="text/javascript" charset="utf-8" src="ToolsCorpus.js"></script>
+    <script type="text/javascript" charset="utf-8" src="common.js"></script>
+    <link href="text.css" type="text/css" rel="stylesheet"/>
+	<link href="uio-app-top-bottom.css" type="text/css" rel="stylesheet" media="screen, print" />
+    <link href="uio-app-print.css" type="text/css" rel="stylesheet" media="print" />
+
+</head>
+<body onload='initializeContext()'>
+<!-- Page header starts -->
+
+<div id='container'>
+<div id="app-head-wrapper"> 
+  <div id="line-top">
+    <div id="uiologo" class="english-uiologo">
+      <a href="http://www.uio.no/english/">University of Oslo</a>
+    </div> 
+  </div>
+  <div id="app-head">
+    <div id="app-name"> 
+      <a href='http://nabu.usit.uio.no/hf/ilos/'>Corpus search - context</a> 
+      <!-- span id="tagline">See context to line</span -->
+    </div>
+  </div> 
+</div>
+<!-- Page header end -->
+
+<table  border="0" style="margin-left:50px;">
+<tr><td>Number of lines before and after match: </td><td>
+<select id='spanSelect' onchange='rewriteTable()' >
+<option value="5">5</option>
+<option value="10">10</option>
+<option value="20">20</option>
+<option value="30">30</option>
+</select>
+</td>
+<td><input type='checkbox' id='originalTextId' onclick='changeContent()'> Original text</td>
+</tr>
+</table>
+
+<table  border="1" class='tableClass'>
+<tr><td colspan='3'><div id='textDiv'><table id='tableBody' border='0' width= '100%'></table></div></td></tr>
+</table>
+
+<!-- Page footer starts -->
+<div id="app-footer-wrapper"> 
+  <div id="app-footer">
+    <div id="app-responsible"> 
+      <span class="vrtx-label">Responsible for this service</span> 
+      <span ><a style="color:blue;" target='_blank' href="http://www.usit.uio.no/english/about/organisation/bps/rc/">Department for Research Computing</a></span> 
+      <span>Data Capture and Collections Management Group</span> 
+    </div>
+  </div> 
+</div>
+<!-- Page footer end -->
+
+ <!-- container-->
+<textarea cols='100' rows='40' id='felt' style='visibility:hidden'></textarea>
+
+</body>
+</html>

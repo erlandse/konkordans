@@ -76,7 +76,7 @@ function urlHasAccessToken() {
   pos = pos + 5;
   var token = getRemote("/textcorpus/api/auth?code="+str.substring(pos)).trim();
   sessionStorage.setItem("accessTokenCorpus", token);
-//  postPhpReturnText("/textcorpus/api/auth?code="+str.substring(pos),new Object(),getAccessToken);
+//  ReturnText("/textcorpus/api/auth?code="+str.substring(pos),new Object(),getAccessToken);
   //sessionStorage.setItem("accessTokenCorpus", str.substring(pos));
   return true;
 }
@@ -248,7 +248,11 @@ function runQuery() {
   searchObject.aggs = getSearchAggregations();
   (<HTMLInputElement>document.getElementById("felt")).value = JSON.stringify(searchObject, null, 2);
   formData.elasticdata = JSON.stringify(searchObject, null, 2);
-  postPhp(formData, writeResult,curIndex.dataPort+"/search?scroll=1m");
+  if(curIndex.dataPort != "")
+    postPhp(formData, writeResult,curIndex.dataPort+"/search?scroll=1m");
+  else
+    postNoDataPort(formData, writeResult)
+  
 }
 
 function clearTable(tableId) {
@@ -348,7 +352,10 @@ function handleOneTermQuery() {
   (<HTMLTextAreaElement>document.getElementById("felt")).value = JSON.stringify(singleSearch, null, 2);
   formData.resturl = curIndex.index + "/" + curIndex.type + "/_search?scroll=1m";
   formData.elasticdata = JSON.stringify(singleSearch, null, 2);
-  postPhp(formData, writeResult,curIndex.dataPort+"/"+"search?scroll=1m");
+  if(curIndex.dataPort!= "")
+    postPhp(formData, writeResult,curIndex.dataPort+"/"+"search?scroll=1m");
+  else 
+    postNoDataPort(formData,writeResult);  
 }
 
 
@@ -379,15 +386,13 @@ function continueSearch() {
   document.getElementById("labelSpan").innerHTML = "Fetching text number of matches so far " + numberOfMatches;
   formData.resturl = curIndex.index + "/" + curIndex.type + "_search/scroll/";
   let elasticdata: any = new Object();
-/*  elasticdata.scroll = "1m";
-  elasticdata.scroll_id = scrollId;
-  elasticdata.size = 1000;*/
 
-  formData.resturl = "_search?scroll=5m&scroll_id=" + scrollId + "&";
+  formData.resturl = "_search/scroll?scroll=5m&scroll_id=" + scrollId + "&";
   formData.elasticdata = "";
-//  this.postPhp(formData,this.curIndex.dataPort+"/search?scroll=5m&scrollId=" + this.scrollId);
-  
-  postPhp(formData, writeResult,curIndex.dataPort+"/search?scroll=5m&scrollId="+scrollId+"&");
+  if(curIndex.dataPort !="")
+    postPhp(formData, writeResult,curIndex.dataPort+"/search?scroll=5m&scrollId="+scrollId+"&");
+  else
+    postNoDataPort(formData,writeResult);  
 }
 
 
@@ -627,9 +632,12 @@ function stopSearching() {
 function loadContext(id) {
   if (contextWindow != null)
     contextWindow.close();
-//  contextWindow = window.open("context.html?id=" + id + "&resturl=" + curIndex.index + "/" + curIndex.type + "/_search?", "context");
-  contextWindow = window.open("context.html?id=" + id + "&resturl="+curIndex.dataPort+"/search?", "context");
 
+//  contextWindow = window.open("context.html?id=" + id + "&resturl=" + curIndex.index + "/" + curIndex.type + "/_search?", "context");
+  if(curIndex.dataPort != "")
+    contextWindow = window.open("context.html?id=" + id + "&resturl="+curIndex.dataPort+"/search?", "context");
+  else  
+    contextWindow = window.open("context.html?id=" + id + "&noPort=" + curIndex.index + "/" + curIndex.type + "/_search?", "context");
 //curIndex.dataPort+"/search?
   contextWindow.focus();
 }

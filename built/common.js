@@ -27,6 +27,22 @@ function postPhp(formData, callBack, dataPort) {
         dataType: "json"
     });
 }
+function postNoDataPort(formData, callBack) {
+    //  document.getElementById("felt").value = "server";
+    $.ajax({
+        url: "passpost.php",
+        type: 'post',
+        data: formData,
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert('status:' + XMLHttpRequest.status + ', status text: ' + XMLHttpRequest.statusText + " errorthrown " + errorThrown);
+        },
+        success: function (data) {
+            //      document.getElementById("felt").value = "client";
+            callBack(data);
+        },
+        dataType: "json"
+    });
+}
 String.prototype.endsWith = function (pattern) {
     var d = this.length - pattern.length;
     return d >= 0 && this.lastIndexOf(pattern) === d;

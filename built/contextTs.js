@@ -16,7 +16,12 @@ function startUp() {
     var formData = new Object();
     formData.elasticdata = JSON.stringify(ob, null, 2);
     document.getElementById("spanSelect").value = "5";
-    postPhp(formData, loadContextInContext, ToolsCorpus.gup("resturl"));
+    if (ToolsCorpus.gup("resturl") != "")
+        postPhp(formData, loadContextInContext, ToolsCorpus.gup("resturl"));
+    else {
+        formData.resturl = ToolsCorpus.gup("noPort");
+        postNoDataPort(formData, loadContextInContext);
+    }
 }
 function changeContent() {
     document.getElementById('tableBody').innerHTML = "";
@@ -50,7 +55,12 @@ function loadContextInContext(data) {
     var formData = new Object();
     document.getElementById('felt').value = JSON.stringify(ob, null, 2);
     formData.elasticdata = JSON.stringify(ob, null, 2);
-    postPhp(formData, writeOut, ToolsCorpus.gup("resturl"));
+    if (ToolsCorpus.gup("resturl") != "")
+        postPhp(formData, writeOut, ToolsCorpus.gup("resturl"));
+    else {
+        formData.resturl = ToolsCorpus.gup("noPort");
+        postNoDataPort(formData, writeOut);
+    }
 }
 var prefix = "<span class=\"upmark\">";
 var postfix = "<\/span>";
@@ -96,30 +106,10 @@ function rewriteTable() {
     ob.query.match_phrase._id = ToolsCorpus.gup("id");
     var formData = new Object();
     formData.elasticdata = JSON.stringify(ob, null, 2);
-    postPhp(formData, loadContextInContext, ToolsCorpus.gup("resturl"));
+    if (ToolsCorpus.gup("resturl") != "")
+        postPhp(formData, loadContextInContext, ToolsCorpus.gup("resturl"));
+    else {
+        formData.resturl = ToolsCorpus.gup("noPort");
+        postNoDataPort(formData, loadContextInContext);
+    }
 }
-/*
-function postPhpContext(formData, callBack,dataPort) {
-  dataPort="/textcorpus/api/"+dataPort;
-  $.ajax({
-//    url: "passpost.php",
-    url:dataPort,
-    type: 'post',
-    contentType:'application/json',
-    headers: {
-      "Authorization": "Bearer " + sessionStorage.getItem("accessTokenCorpus"),
-    },
-    data: formData.elasticdata,
-    error: function (XMLHttpRequest, textStatus, errorThrown) {
-        alert('Sorry. You have to log in again.');
-        sessionStorage.setItem("accessTokenCorpus", null);
-        window.location.href = "index.html";
-    },
-    success: function (data) {
-      //      document.getElementById("felt").value = "client";
-      callBack(data);
-    },
-    dataType: "json"
-  });
-}
-*/ 

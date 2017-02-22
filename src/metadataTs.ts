@@ -102,7 +102,10 @@ function initMetadataTable(){
   formData.resturl= curIndex.index+"/"+curIndex.type+"/_search?";
   (<HTMLTextAreaElement>document.getElementById("felt")).value = JSON.stringify(ob,null,2);
   formData.elasticdata = JSON.stringify(ob,null,2);
-  postPhp(formData,initMetadataTables,curIndex.dataPort+"/search?");
+  if(curIndex.dataPort !="")
+    postPhp(formData,initMetadataTables,curIndex.dataPort+"/search?");
+  else
+     postNoDataPort(formData,initMetadataTables);  
 }
 
 function initMetadataTables(data){

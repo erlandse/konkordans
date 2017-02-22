@@ -33,6 +33,7 @@ class FileResult {
     this.curIndex = curI;
     this.userId = userId;
     this.postPhp = this.postPhp.bind(this);
+    this.postNoDataPort = this.postNoDataPort.bind(this);
     this.postPhpReturnText = this.postPhpReturnText.bind(this);
     this.fileSplitJump = this.fileSplitJump.bind(this);
     this.writeFileResult = this.writeFileResult.bind(this);
@@ -86,7 +87,10 @@ class FileResult {
 
     formData.elasticdata = JSON.stringify(this.searchObject, null, 2);
     this.setCallBack(this.writeFileResult, "initFileResult");
-    this.postPhp(formData,this.curIndex.dataPort+"/search?scroll=1m");
+    if(this.curIndex.dataPort !="")
+      this.postPhp(formData, this.curIndex.dataPort + "/search?scroll=1m");
+    else
+      this.postNoDataPort(formData);  
 
   }
 
@@ -314,7 +318,7 @@ class FileResult {
       return;
     }
     formData = new Object();
-    document.getElementById("labelSpan").innerHTML = "Fetching matches  found so far " + this.numberOfMatches + ": Done " + Math.floor((this.pagePos * 100)/hits) + "%";
+    document.getElementById("labelSpan").innerHTML = "Fetching matches  found so far " + this.numberOfMatches + ": Done " + Math.floor((this.pagePos * 100) / hits) + "%";
     //    formData.resturl = this.curIndex.index + "/" + this.curIndex.type + "_search/scroll/";
     /*  let elasticdata: any = new Object();
       elasticdata.scroll = "1m";
@@ -325,7 +329,10 @@ class FileResult {
     //    formData.resturl = "searchICEScroll?scroll=5m&scrollId="this.scrollId);
     formData.elasticdata = "";
     this.setCallBack(this.writeFileResult, "continue filesearch 3");
-    this.postPhp(formData,this.curIndex.dataPort+"/search?scroll=5m&scrollId=" + this.scrollId);
+    if(curIndex.dataPort !="")
+      this.postPhp(formData, this.curIndex.dataPort + "/search?scroll=5m&scrollId=" + this.scrollId);
+    else
+      this.postNoDataPort(formData);  
   }
 
 
@@ -349,7 +356,7 @@ class FileResult {
     this.postPhpReturnText("linkToSortResult.php", formData);
     //new
     this.updateLabels();
-    
+
   }
 
   writeSortedPage(data) {
@@ -512,14 +519,14 @@ class FileResult {
   }
 
   //-------------------------------------------post functions
-  postPhp(formData,dataPort) {
-    dataPort="/textcorpus/api/"+dataPort;
+  postPhp(formData, dataPort) {
+    dataPort = "/textcorpus/api/" + dataPort;
     $.ajax({
-//      url: "passpost.php",
-      url:dataPort,
+      //      url: "passpost.php",
+      url: dataPort,
       type: 'post',
       data: formData.elasticdata,
-      contentType:'application/json',      
+      contentType: 'application/json',
       headers: {
         "Authorization": "Bearer " + sessionStorage.getItem("accessTokenCorpus"),
       },
@@ -532,6 +539,20 @@ class FileResult {
       dataType: "json"
     });
   }
+
+
+  postNoDataPort(formData) {
+    $.ajax({
+      url: "passpost.php",
+      type: 'post',
+      data: formData,
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
+        alert('status:' + XMLHttpRequest.status + ', status text: ' + XMLHttpRequest.statusText + " errorthrown " + errorThrown);
+      },
+      success: this.postPhpOnSuccess,
+      dataType: "json"
+    });
+  };
 
 
   postPhpReturnText(urlToCall, formData) {

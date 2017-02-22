@@ -15,6 +15,7 @@ var FileResult = (function () {
         this.curIndex = curI;
         this.userId = userId;
         this.postPhp = this.postPhp.bind(this);
+        this.postNoDataPort = this.postNoDataPort.bind(this);
         this.postPhpReturnText = this.postPhpReturnText.bind(this);
         this.fileSplitJump = this.fileSplitJump.bind(this);
         this.writeFileResult = this.writeFileResult.bind(this);
@@ -61,7 +62,10 @@ var FileResult = (function () {
         //  formdData,resurl = "searchICEScroll?scroll=1m";
         formData.elasticdata = JSON.stringify(this.searchObject, null, 2);
         this.setCallBack(this.writeFileResult, "initFileResult");
-        this.postPhp(formData, this.curIndex.dataPort + "/search?scroll=1m");
+        if (this.curIndex.dataPort != "")
+            this.postPhp(formData, this.curIndex.dataPort + "/search?scroll=1m");
+        else
+            this.postNoDataPort(formData);
     };
     FileResult.prototype.postPhpOnSuccess = function (data) {
         this.postCallBack(data);
@@ -287,7 +291,10 @@ var FileResult = (function () {
         //    formData.resturl = "searchICEScroll?scroll=5m&scrollId="this.scrollId);
         formData.elasticdata = "";
         this.setCallBack(this.writeFileResult, "continue filesearch 3");
-        this.postPhp(formData, this.curIndex.dataPort + "/search?scroll=5m&scrollId=" + this.scrollId);
+        if (curIndex.dataPort != "")
+            this.postPhp(formData, this.curIndex.dataPort + "/search?scroll=5m&scrollId=" + this.scrollId);
+        else
+            this.postNoDataPort(formData);
     };
     FileResult.prototype.loadResult = function () {
         var formData = new Object();
@@ -464,6 +471,19 @@ var FileResult = (function () {
             dataType: "json"
         });
     };
+    FileResult.prototype.postNoDataPort = function (formData) {
+        $.ajax({
+            url: "passpost.php",
+            type: 'post',
+            data: formData,
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('status:' + XMLHttpRequest.status + ', status text: ' + XMLHttpRequest.statusText + " errorthrown " + errorThrown);
+            },
+            success: this.postPhpOnSuccess,
+            dataType: "json"
+        });
+    };
+    ;
     FileResult.prototype.postPhpReturnText = function (urlToCall, formData) {
         $.ajax({
             url: urlToCall,

@@ -28,6 +28,26 @@ function postPhp(formData, callBack,dataPort) {
   });
 } 
 
+function postNoDataPort(formData, callBack) {
+    //  document.getElementById("felt").value = "server";
+    $.ajax({
+        url: "passpost.php",
+        type: 'post',
+        data: formData,
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert('status:' + XMLHttpRequest.status + ', status text: ' + XMLHttpRequest.statusText + " errorthrown " + errorThrown);
+        },
+        success: function (data) {
+            //      document.getElementById("felt").value = "client";
+            callBack(data);
+        },
+        dataType: "json"
+    });
+}
+
+
+
+
 interface String {
   endsWith(pattern): any;
 }

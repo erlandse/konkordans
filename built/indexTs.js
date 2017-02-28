@@ -37,6 +37,7 @@ var wordSplitter = new RegExp("([\\s.,;:\"\(\)\{\}<>$+=!\\[\\]\\*â€”\\?\\#_\&%â‚
 var spaceSplitter = new RegExp("([\\s]+)", "g");
 var numberOfTerms = 0;
 var workingSpanNear = null;
+var freeIndexes = true;
 //var defaultTerm = JSON.parse
 function createdefaultObjects() {
     defaultObj = JsonTool.createJsonPath("query.bool.filter");
@@ -78,6 +79,10 @@ function initialize() {
     $(document).ready(function () {
         // do jQuery
     });
+    if (freeIndexes == true) {
+        finishInitializing();
+        return;
+    }
     if (urlHasAccessToken() == false) {
         var st_1 = sessionStorage.getItem("accessTokenCorpus");
         if (st_1 == "null" || stringEmpty(st_1)) {

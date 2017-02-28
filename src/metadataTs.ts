@@ -104,8 +104,9 @@ function initMetadataTable(){
   formData.elasticdata = JSON.stringify(ob,null,2);
   if(curIndex.dataPort !="")
     postPhp(formData,initMetadataTables,curIndex.dataPort+"/search?");
-  else
+  else{
      postNoDataPort(formData,initMetadataTables);  
+  }   
 }
 
 function initMetadataTables(data){

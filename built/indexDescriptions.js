@@ -1,5 +1,31 @@
 var indexList = [
     {
+        "displayName": "Corpus of British Fiction (Gutenberg)",
+        "index": "gutenberg",
+        "type": "gutenbergraw",
+        "dataPort": "",
+        "containContext": true,
+        "aggregations": [
+            {
+                "fieldName": "decade",
+                "displayName": "Decade:",
+                "displayEmpty": "All decades",
+                "multiValued": true,
+                "inSearch": true
+            },
+            {
+                "fieldName": "sex",
+                "displayName": "Sex:",
+                "displayEmpty": "Both sexes",
+                "multiValued": false,
+                "inSearch": false
+            }
+        ],
+        "cellsInRow": 2,
+        "includeLemma": false,
+        "wordClasses": []
+    },
+    {
         "displayName": "International Corpus of English",
         "index": "icecontext",
         "type": "iceraw",

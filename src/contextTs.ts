@@ -65,7 +65,7 @@ function loadContextInContext(data){
   ob.sort.push(s);
   var formData:any = new Object();
   (<HTMLTextAreaElement>document.getElementById('felt')).value= JSON.stringify(ob,null,2);
-  formData.elasticdata = JSON.stringify(ob,null,2)
+  formData.elasticdata = JSON.stringify(ob,null,2);
   if(ToolsCorpus.gup("resturl") != "")
     postPhp(formData,writeOut,ToolsCorpus.gup("resturl"));
   else{

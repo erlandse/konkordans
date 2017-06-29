@@ -30,7 +30,7 @@ class ToolsCorpus {
     }
 
   static  removeOptionSelected(selectId: string) {
-        let elSel: HTMLSelectElement = <HTMLSelectElement>document.getElementById(selectId);
+        let elSel: any = <HTMLSelectElement>document.getElementById(selectId);
         var i;
         for (i = elSel.length - 1; i >= 0; i--) {
             if (elSel.options[i].selected) {
@@ -46,7 +46,7 @@ class ToolsCorpus {
     }
 
    static selectAllOptions(selectId: string) {
-        let sel: HTMLSelectElement = <HTMLSelectElement>document.getElementById(selectId);
+        let sel: any = <HTMLSelectElement>document.getElementById(selectId);
         for (var temp = 0; temp < sel.length; temp++)
             sel.options[temp].selected = true;
     }

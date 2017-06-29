@@ -37,7 +37,7 @@ var wordSplitter = new RegExp("([\\s.,;:\"\(\)\{\}<>$+=!\\[\\]\\*â€”\\?\\#_\&%â‚
 var spaceSplitter = new RegExp("([\\s]+)", "g");
 var numberOfTerms = 0;
 var workingSpanNear = null;
-var freeIndexes = true;
+var freeIndexes = false;
 //var defaultTerm = JSON.parse
 function createdefaultObjects() {
     defaultObj = JsonTool.createJsonPath("query.bool.filter");

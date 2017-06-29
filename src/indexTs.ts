@@ -42,7 +42,7 @@ var wordSplitter = new RegExp("([\\s.,;:\"\(\)\{\}<>$+=!\\[\\]\\*â€”\\?\\#_\&%â‚
 var spaceSplitter = new RegExp("([\\s]+)", "g");
 var numberOfTerms = 0;
 var workingSpanNear = null;
-let freeIndexes = true;
+let freeIndexes = false;
 
 //var defaultTerm = JSON.parse
 

@@ -141,7 +141,7 @@ function fillAggregations(es){
  }
 
 function changeClick(id){
-  let el:HTMLSelectElement = <HTMLSelectElement>document.getElementById("select"+id);
+  let el:any = <HTMLSelectElement>document.getElementById("select"+id);
   if(el.options[0].selected == true){
     for(let temp =1; temp < el.options.length;temp++)
       el.options[temp].selected = false;
